@@ -8,13 +8,17 @@ const express = require('express');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 
+const dotenv = require('dotenv');
+dotenv.load({ path: '.env' });
+const path = process.env.CSVPATH + (/\/$/.test(process.env.CSVPATH) ? '' : '/');
+
 // disk operations
 
 var cache = [];
 
 function writeCacheToFile() {
-  var filename = `tickets_${(new Date()).toJSON()}.csv`;
-  console.log('Writing to ' + `tickets_${(new Date()).toJSON()}.csv`);
+  var filename = `${path}${process.env.FILEPREFIX}_${(new Date()).toJSON()}.csv`;
+  console.log('Writing to ' + `${process.env.FILEPREFIX}_${(new Date()).toJSON()}.csv`);
 
   var csvStream = csv.format({ headers: true, delimiter: ';' })
   var writableStream = fs.createWriteStream(filename);
@@ -52,4 +56,4 @@ app.post('/webhook', function (req, res) {
 
 });
 
-app.listen(8080);
+app.listen(process.env.HTTPPORT);
