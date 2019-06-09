@@ -12,6 +12,12 @@ It receives parcelLab webhooks (or actually any webhook) and transforms any rece
 
 Running a `POST` request against this service:
 
+```bash
+http://localhost:8080/webhook/?id=someid&prefix=webhook&headers=true&delimiter=|&token=some-token
+```
+
+With this body:
+
 ```json
 {
 	"test": "okay",
@@ -19,7 +25,7 @@ Running a `POST` request against this service:
 }
 ```
 
-Will generate a local file named `tickets_<timestamp>.csv` with these contents:
+Will generate a local file named `./someid/webhook_<timestamp>.csv` with these contents:
 
 ```csv
 test;anothertest
