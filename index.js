@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 dotenv.load({ path: '.env' });
 
+const _TOKEN = process.env.TOKEN;
+
 // disk operations
 
 var cache = {};
@@ -56,6 +58,8 @@ app.use(bodyParser.json());
 app.get('/ping', (req, res) => res.status(200).send('pong'));
 
 app.post('/webhook', function (req, res) {
+
+  if (req.query.token !== _TOKEN) return res.status(401).send('no');
 
   var folder = req.query.id ? req.query.id : 'default';
   if (!/^\//.test(folder)) folder = '/' + folder;
