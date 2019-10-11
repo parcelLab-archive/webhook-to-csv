@@ -8,6 +8,15 @@ Get help at [support@parcellab.com](mailto:support@parcellab.com)
 
 It receives parcelLab webhooks (or actually any webhook) and transforms any received JSON payload to CSV files. It writes a new file approx every 30 seconds. The generated CSV will have headings in the order of the keys of the received payloads.
 
+You can set different URL query parameters to change the behaviour:
+
+* `?id=`: where to store files, defaults to `default`
+* `&prefix=`: a prefix for all CSV file names
+* `&headers=`: sets whether CSV has header row and can be `true` or `false`, defaults to `true`
+* `&delimiter=`: delimiter to use in CSV, defaults to `;`
+* `&quote=`: quote char to use for CSV, defaults to `"`
+* `&token=`: the token as specified in `.env` (**required**)
+
 # Example
 
 Running a `POST` request against this service:
